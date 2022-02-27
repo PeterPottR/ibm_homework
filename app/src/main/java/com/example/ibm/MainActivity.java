@@ -7,11 +7,13 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,14 +87,53 @@ public class MainActivity extends AppCompatActivity {
             desc_tv.setText(items[i].Description);
 
             //SECONDARY TEXT CREATE
+            TextView email_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
+            email_tv.setText("Email: " + items[i].Email);
+            TextView user_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
+            user_tv.setText("UserName: " + items[i].UserName);
+            TextView created_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
+            created_tv.setText("Created: " + items[i].Created);
+            TextView media_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
+            media_tv.setText("Media type:" + items[i].MediaType);
+            TextView guid_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
+            guid_tv.setText("GUID: " + items[i].Guid);
+
 
 
             //ADDING VIEWS TO LAYOUT
             text_layout.addView(imageView);
             text_layout.addView(title_tv);
             text_layout.addView(desc_tv);
+            text_layout.addView(user_tv);
+            text_layout.addView(email_tv);
+            text_layout.addView(media_tv);
+            text_layout.addView(guid_tv);
+            text_layout.addView(created_tv);
+
             cardview.addView(text_layout);
             layout.addView(cardview);
+
+            //ONCLICK ACTION
+            cardview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (email_tv.getVisibility()==View.GONE){
+                        user_tv.setVisibility(View.VISIBLE);
+                        email_tv.setVisibility(View.VISIBLE);
+                        guid_tv.setVisibility(View.VISIBLE);
+                        media_tv.setVisibility(View.VISIBLE);
+                        created_tv.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        user_tv.setVisibility(View.GONE);
+                        email_tv.setVisibility(View.GONE);
+                        guid_tv.setVisibility(View.GONE);
+                        media_tv.setVisibility(View.GONE);
+                        created_tv.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
 
     }

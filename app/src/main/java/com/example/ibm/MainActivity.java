@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
         new JsonTask().execute(url);
     }
 
-    public void AddCards(Item[] items) //adding the cardViews to the main layout
+    public void AddCards(Item[] items, Integer pagingIndex) //adding the cardViews to the main layout
     {
         LinearLayout layout = (LinearLayout) findViewById(R.id.main_layout);
-        for (int i = 0; i < items.length; i++)
+        for (int i = pagingIndex; i < pagingIndex+20; i++)
         {
             //CARD VIEW CREATE
             CardView cardview = new CardView(MainActivity.this);
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             layoutparams.setMargins(20,20,20,20);
+            layoutparams.gravity = Gravity.CENTER;
             cardview.setLayoutParams(layoutparams);
             cardview.setMinimumHeight(300);
             cardview.setRadius(20);
@@ -76,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             if (items[i].AvatarUrl!=null) {
                 Picasso.get().load(items[i].AvatarUrl).into(imageView);
             }
-
 
 
             //MAIN TEXT CREATE
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             TextView created_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
             created_tv.setText("Created: " + items[i].Created);
             TextView media_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
-            media_tv.setText("Media type:" + items[i].MediaType);
+            media_tv.setText("Media type: " + items[i].MediaType);
             TextView guid_tv = (TextView)getLayoutInflater().inflate(R.layout.secondary_tv, null);
             guid_tv.setText("GUID: " + items[i].Guid);
 
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("JSON:", result);
             dm.convertJSON(result);
 
-            AddCards(dm.items);
+            AddCards(dm.items, 0);
         }
     }
 }

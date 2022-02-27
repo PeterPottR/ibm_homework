@@ -23,6 +23,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/paging_et"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="Select Page"
+                android:inputType="number">
+
+            </EditText>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

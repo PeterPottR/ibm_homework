@@ -5,6 +5,7 @@
     android:fontFamily="@font/advent_pro_medium"
     android:textColor="#003F83"
     android:textSize="15sp"
-    android:visibility="gone">
+    android:visibility="gone"
+    android:textAlignment="center">
 
 </TextView>

@@ -29,22 +29,17 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    Item[] dataPoints = new Item[0];
-
     ProgressDialog pd;
-
     private static String url = "https://android-intern-homework.vercel.app/api";
-    private static String jsonString="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         new JsonTask().execute(url);
-
-
-
     }
+
 
     private class JsonTask extends AsyncTask<String, String, String> {
 
@@ -109,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
             if (pd.isShowing()){
                 pd.dismiss();
             }
-            jsonString = result;
-            Log.d("JSON:", jsonString);
+            Log.d("JSON:", result);
+            DataManager dm = new DataManager();
+            dm.convertJSON(result);
         }
     }
 }

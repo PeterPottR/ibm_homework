@@ -21,14 +21,32 @@ import java.net.URLConnection;
 public class DataManager {
 
     public Item[] items = new Item[0];
-    public String jsonTxt = "";
 
-    String data = "";
+    public void convertJSON (String stringJSON)
+    {
+        try {
+            JSONObject jsonObject = new JSONObject(stringJSON);
+            JSONArray playlist = jsonObject.getJSONArray("playlist");
+            items = new Item[playlist.length()];
+            for (int i = 0; i < playlist.length(); i++) {
+                JSONObject obj = playlist.getJSONObject(i);
+                items[i] = new Item(
+                        obj.getString("guid"),
+                        obj.getString("email"),
+                        obj.getString("userName"),
+                        obj.getString("description"),
+                        obj.getString("title"),
+                        obj.getString("avatarURL"),
+                        obj.getString("mediaType"),obj.getString("created"),
+                        obj.getInt("durationInSec")
+                );
+            }
 
-    public void ImportData(String url) {
-
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
 }
 
 

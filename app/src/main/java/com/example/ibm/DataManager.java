@@ -37,11 +37,15 @@ public class DataManager {
                         obj.getString("description"),
                         obj.getString("title"),
                         obj.getString("avatarURL"),
-                        obj.getString("mediaType"),obj.getString("created"),
+                        obj.getString("mediaType"),
+                        obj.getString("created"),
                         obj.getInt("durationInSec")
                 );
+                if (items[i].AvatarUrl.length()==0) //Avoiding exceptions because of no picture input data
+                {
+                    items[i].AvatarUrl=null;
+                }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

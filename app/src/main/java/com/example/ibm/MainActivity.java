@@ -11,12 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.main_layout);
         for (int i = 0; i < items.length; i++)
         {
-            //Add CardView
+            //CARD VIEW CREATE
             CardView cardview = new CardView(MainActivity.this);
             LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -59,20 +61,34 @@ public class MainActivity extends AppCompatActivity {
             );
             layoutparams.setMargins(20,20,20,20);
             cardview.setLayoutParams(layoutparams);
-            cardview.setMinimumHeight(200);
+            cardview.setMinimumHeight(300);
             cardview.setRadius(20);
             cardview.setPadding(50, 50, 50, 50);
             cardview.setCardBackgroundColor(Color.WHITE);
             cardview.setMaxCardElevation(30);
-            cardview.setMaxCardElevation(6);
+            //IMAGE CREATE
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(300, 300);
+            lp.gravity = Gravity.CENTER;
+            ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.new_imageview, null);
+            imageView.setLayoutParams(lp);
+            if (items[i].AvatarUrl!=null) {
+                Picasso.get().load(items[i].AvatarUrl).into(imageView);
+            }
 
+
+
+            //MAIN TEXT CREATE
             LinearLayout text_layout = (LinearLayout) getLayoutInflater().inflate(R.layout.new_linear_layout, null);
             TextView title_tv = (TextView)getLayoutInflater().inflate(R.layout.title_tv, null);
             title_tv.setText(items[i].Title);
             TextView desc_tv = (TextView)getLayoutInflater().inflate(R.layout.desc_tv, null);
             desc_tv.setText(items[i].Description);
 
+            //SECONDARY TEXT CREATE
 
+
+            //ADDING VIEWS TO LAYOUT
+            text_layout.addView(imageView);
             text_layout.addView(title_tv);
             text_layout.addView(desc_tv);
             cardview.addView(text_layout);
@@ -150,7 +166,5 @@ public class MainActivity extends AppCompatActivity {
             AddCards(dm.items);
         }
     }
-
-
 }
 

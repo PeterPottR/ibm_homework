@@ -29,7 +29,8 @@
                 android:layout_height="55dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:hint="Select Page"
-                android:inputType="number">
+                android:inputType="number"
+                android:visibility="gone">
 
             </EditText>
         </LinearLayout>

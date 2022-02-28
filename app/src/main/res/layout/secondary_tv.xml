@@ -6,6 +6,7 @@
     android:textColor="#003F83"
     android:textSize="15sp"
     android:visibility="gone"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    android:paddingTop="20dp">
 
 </TextView>

@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
         new JsonTask().execute(url);
     }
 
-    public void AddCards(Item[] items, Integer pagingIndex) //adding the cardViews to the main layout
+    public void AddCards(Item[] items) //adding the cardViews to the main layout
     {
         LinearLayout layout = (LinearLayout) findViewById(R.id.main_layout);
-        for (int i = pagingIndex; i < pagingIndex+20; i++)
+        for (int i = 0; i < items.length; i++)
         {
             //CARD VIEW CREATE
             CardView cardview = new CardView(MainActivity.this);
@@ -78,13 +78,20 @@ public class MainActivity extends AppCompatActivity {
             if (items[i].AvatarUrl!=null) {
                 Picasso.get().load(items[i].AvatarUrl).into(imageView);
             }
-
+            else {
+                lp = new LinearLayout.LayoutParams(300, 0);
+                imageView.setLayoutParams(lp);
+            }
 
             //MAIN TEXT CREATE
             LinearLayout text_layout = (LinearLayout) getLayoutInflater().inflate(R.layout.new_linear_layout, null);
             TextView title_tv = (TextView)getLayoutInflater().inflate(R.layout.title_tv, null);
             title_tv.setText(items[i].Title);
             TextView desc_tv = (TextView)getLayoutInflater().inflate(R.layout.desc_tv, null);
+            if (items[i].Description==null)
+            {
+                desc_tv.setText("");
+            }
             desc_tv.setText(items[i].Description);
 
             //SECONDARY TEXT CREATE
@@ -124,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                         guid_tv.setVisibility(View.VISIBLE);
                         media_tv.setVisibility(View.VISIBLE);
                         created_tv.setVisibility(View.VISIBLE);
+                        cardview.setBackgroundColor(Color.rgb(220,220,220));
                     }
                     else
                     {
@@ -132,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
                         guid_tv.setVisibility(View.GONE);
                         media_tv.setVisibility(View.GONE);
                         created_tv.setVisibility(View.GONE);
+                        cardview.setBackgroundColor(Color.WHITE);
                     }
                 }
             });
         }
 
     }
-
     private class JsonTask extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
@@ -205,8 +213,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d("JSON:", result);
             dm.convertJSON(result);
 
-            AddCards(dm.items, 0);
+            AddCards(dm.items);
         }
     }
+
 }
+
+
 

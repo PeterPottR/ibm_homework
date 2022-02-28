@@ -1,5 +1,6 @@
 package com.example.ibm;
 
+//Data container for the items coming in the GET request
 public class Item {
     String Guid;
     String Email;

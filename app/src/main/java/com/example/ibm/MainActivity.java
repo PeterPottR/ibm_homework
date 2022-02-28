@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         new JsonTask().execute(url);
     }
 
-    public void AddCards(Item[] items) //adding the cardViews to the main layout
+    public void AddCards(Item[] items) //adding the cardViews + the data to the main layout
     {
         LinearLayout layout = (LinearLayout) findViewById(R.id.main_layout);
         for (int i = 0; i < items.length; i++)
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+	//async task to get the JSON data from the API
     private class JsonTask extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
             pd.setCancelable(false);
             pd.show();
         }
-
+	
         protected String doInBackground(String... params) {
 
             HttpURLConnection connection = null;

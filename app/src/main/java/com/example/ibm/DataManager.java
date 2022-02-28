@@ -22,7 +22,7 @@ public class DataManager {
 
     public Item[] items = new Item[0];
 
-    public void convertJSON (String stringJSON)
+    public void convertJSON (String stringJSON) //converts JSON string into Item objects
     {
         try {
             JSONObject jsonObject = new JSONObject(stringJSON);
